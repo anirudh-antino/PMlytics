@@ -1,6 +1,17 @@
-# PMlytics
+<div align="center">
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img width="180" height="180" alt="logo" src="https://github.com/user-attachments/assets/cf2b2e20-de79-4724-acb5-dc5501234dd8" />
+  </a>
 
-Local web app that asks natural-language questions about your product or funnel data and turns them into read-only SQL/Mongo plans, charts, and short reports.  
+  <p align="center">
+    Local web app that asks natural-language questions about your product or funnel data and turns them into read-only SQL/Mongo plans, charts, and short reports.  
+  </p>  
+</div>
+
+
+<img width="2930" height="1428" alt="screen" src="https://github.com/user-attachments/assets/5b18dc7e-e310-4cd3-b99b-ef8e01baeef6" />
+
+
 
 ## Run locally
 
@@ -48,4 +59,6 @@ Connect **PostgreSQL**, **MySQL**, or **MongoDB** from the **Connections** scree
 
 ## Demo
 
-**Video:** *[placeholder — add link when ready]*
+
+https://github.com/user-attachments/assets/021934c1-71b5-433b-893e-f22f22d87d4f
+
