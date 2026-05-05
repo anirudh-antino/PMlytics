@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PM Data Analyst</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: "#fafaf9",
+              surface: "#ffffff",
+              ink: "#111111",
+              ink2: "#1f2937",
+              muted: "#6b7280",
+              line: "#ececec",
+              line2: "#e5e7eb",
+              accent: "#4338ca",
+              accentHover: "#3730a3",
+              accentSoft: "#eef2ff",
+              ok: "#10b981",
+              warn: "#d97706",
+              danger: "#dc2626",
+            },
+            fontFamily: {
+              sans: ['"Instrument Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+              mono: ['"JetBrains Mono"', "ui-monospace", "monospace"],
+            },
+            boxShadow: {
+              card: "0 1px 2px rgba(17,17,17,0.04), 0 2px 8px rgba(17,17,17,0.04)",
+              pop: "0 8px 24px rgba(17,17,17,0.10)",
+            },
+          },
+        },
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.6/dist/purify.min.js"></script>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body class="h-full bg-bg font-sans text-ink antialiased">
+    <div id="app-shell" class="flex h-full">
+      <!-- Sidebar -->
+      <aside id="sidebar" class="sidebar">
+        <div class="sidebar-brand">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 19V5l8 6 8-6v14" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <span class="brand-text">
+            <span class="brand-title">PM Analyst</span>
+            <span class="brand-sub">Local workspace</span>
+          </span>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Primary">
+          <a href="#/home" class="nav-item" data-route="home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <path d="M12 5l8 6v8a1 1 0 01-1 1h-4v-6h-6v6H5a1 1 0 01-1-1v-8l8-6z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>New analysis</span>
+          </a>
+          <a href="#/templates" class="nav-item" data-route="templates">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <rect x="3" y="3" width="7" height="7" rx="1.2" />
+              <rect x="14" y="3" width="7" height="7" rx="1.2" />
+              <rect x="3" y="14" width="7" height="7" rx="1.2" />
+              <rect x="14" y="14" width="7" height="7" rx="1.2" />
+            </svg>
+            <span>Templates</span>
+          </a>
+          <a href="#/history" class="nav-item" data-route="history">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>History</span>
+          </a>
+          <a href="#/schema" class="nav-item" data-route="schema">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <ellipse cx="12" cy="5" rx="8" ry="2.5" />
+              <path d="M4 5v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5V5M4 11v6c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-6" stroke-linecap="round" />
+            </svg>
+            <span>Schema</span>
+          </a>
+          <a href="#/connections" class="nav-item" data-route="connections">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <path d="M9 7h6a4 4 0 010 8h-1m-4 2H4a4 4 0 010-8h1" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Connections</span>
+          </a>
+          <a href="#/settings" class="nav-item" data-route="settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.7 1.7 0 00.3 1.8l.1.1a2 2 0 11-2.8 2.8l-.1-.1a1.7 1.7 0 00-1.8-.3 1.7 1.7 0 00-1 1.5V21a2 2 0 11-4 0v-.1a1.7 1.7 0 00-1-1.5 1.7 1.7 0 00-1.8.3l-.1.1A2 2 0 114.4 17l.1-.1a1.7 1.7 0 00.3-1.8 1.7 1.7 0 00-1.5-1H3a2 2 0 110-4h.1a1.7 1.7 0 001.5-1 1.7 1.7 0 00-.3-1.8l-.1-.1A2 2 0 117 4.4l.1.1a1.7 1.7 0 001.8.3h0a1.7 1.7 0 001-1.5V3a2 2 0 114 0v.1a1.7 1.7 0 001 1.5 1.7 1.7 0 001.8-.3l.1-.1a2 2 0 112.8 2.8l-.1.1a1.7 1.7 0 00-.3 1.8V9a1.7 1.7 0 001.5 1H21a2 2 0 110 4h-.1a1.7 1.7 0 00-1.5 1z" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Settings</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div id="active-conn-chip" class="active-conn-chip" role="status">
+            <span class="dot dot--idle"></span>
+            <div class="min-w-0 flex-1">
+              <span class="block text-[10px] font-semibold uppercase tracking-wider text-muted">Active connection</span>
+              <span class="active-conn-name truncate">Not connected</span>
+            </div>
+          </div>
+          <a href="#/connections" class="footer-cta">Manage</a>
+        </div>
+      </aside>
+
+      <!-- Main column -->
+      <div class="main-col">
+        <header class="topbar">
+          <div class="topbar-left">
+            <h1 id="topbar-title" class="topbar-title">New analysis</h1>
+            <span id="topbar-sub" class="topbar-sub"></span>
+          </div>
+          <div class="topbar-right">
+            <div class="conn-switcher">
+              <label for="conn-switcher" class="sr-only">Active connection</label>
+              <select id="conn-switcher" class="conn-switcher-select">
+                <option value="">No connection</option>
+              </select>
+            </div>
+            <div class="model-picker">
+              <label for="model-switcher" class="sr-only">Model</label>
+              <select id="model-switcher" class="model-switcher-select">
+                <option value="">Model: auto</option>
+              </select>
+            </div>
+          </div>
+        </header>
+
+        <div id="analysis-progress" class="progress-track hidden" aria-hidden="true">
+          <div class="progress-fill"></div>
+          <span id="progress-label" class="progress-label"></span>
+        </div>
+
+        <main id="view" class="view"></main>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+
+    <script src="/static/lib/api.js" defer></script>
+    <script src="/static/lib/storage.js" defer></script>
+    <script src="/static/lib/components.js" defer></script>
+    <script src="/static/lib/charts.js" defer></script>
+    <script src="/static/views/home.js" defer></script>
+    <script src="/static/views/report.js" defer></script>
+    <script src="/static/views/templates.js" defer></script>
+    <script src="/static/views/connections.js" defer></script>
+    <script src="/static/views/schema.js" defer></script>
+    <script src="/static/views/history.js" defer></script>
+    <script src="/static/views/settings.js" defer></script>
+    <script src="/static/app.js" defer></script>
+  </body>
+</html>
